@@ -1,21 +1,10 @@
-name: Terraform Automation
+steps:
+- name: 'gcr.io/cloud-builders/terraform'
+  args: ['init']
 
-on:
-  push:
-    branches:
-      - master
+- name: 'gcr.io/cloud-builders/terraform'
+  args: ['plan']
 
-    steps:
-
-    - name: Terraform Init
-      run: terraform init
-
-    - name: Terraform Plan
-      run: terraform plan
-
-    - name: Terraform Apply
-      if: github.event_name == 'push' && github.event_ref == 'refs/heads/master'
-      run: terraform apply -auto-approve
-
-
+- name: 'gcr.io/cloud-builders/terraform'
+  args: ['apply', '-auto-approve']
 
